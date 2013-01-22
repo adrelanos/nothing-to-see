@@ -265,13 +265,13 @@ echo "INFO: Getting the GPG keys... Verify the fingerprints."
 echo "INFO: Getting Erinn Clark's GPG key..."
 echo "INFO: You can ignore the libtorsocks warning about the DNS leak. See Whonix Design. There can be no DNS leaks."
 /usr/local/bin/uwt -t 5 -i "$GATEWAY_IP" -p "$SOCKS_PORT_TBB_GPG" /usr/bin/gpg \
---homedir gpgtmpdir --keyserver hkp://2eghzlv2wwcq7u7y.onion --recv 8738A680B84B3031A630F2DB416F061063FEE659
+--homedir gpgtmpdir --keyserver x-hkp://pool.sks-keyservers.net --recv 8738A680B84B3031A630F2DB416F061063FEE659
 
 # !!!VERIFY!!!
 echo "INFO: Getting Sebastian Hahn's GPG key..."
 echo "INFO: You can ignore the libtorsocks warning about the DNS leak. See Whonix Design. There can be no DNS leaks."
 /usr/local/bin/uwt -t 5 -i "$GATEWAY_IP" -p "$SOCKS_PORT_TBB_GPG" /usr/bin/gpg \
---homedir gpgtmpdir --keyserver hkp://2eghzlv2wwcq7u7y.onion --recv 261C5FBE77285F88FB0C343266C8C2D7C5AA446D
+--homedir gpgtmpdir --keyserver x-hkp://pool.sks-keyservers.net --recv 261C5FBE77285F88FB0C343266C8C2D7C5AA446D
 
 # !!!VERIFY!!!
 echo "INFO: Verifying Erinn Clark's GPG key..."
