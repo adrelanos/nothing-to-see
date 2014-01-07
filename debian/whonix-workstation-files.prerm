@@ -8,7 +8,12 @@ source /usr/share/whonix/postinst.d/pre.bsh
 
 set -e
 
-true "INFO: Configuring (prerm script) $DPKG_MAINTSCRIPT_PACKAGE..."
+true "
+####################################################################
+## INFO: Begin prerm script $DPKG_MAINTSCRIPT_PACKAGE...
+####################################################################
+"
+
 true "INFO: Opts: ${1+"$@"}"
 
 true "INFO: debhelper beginning here."
@@ -19,6 +24,6 @@ true "INFO: Done with debhelper."
 
 true "
 ####################################################################
-## INFO: Successfully finished (prerm script) $DPKG_MAINTSCRIPT_PACKAGE.
+## INFO: Successfully finished prerm script $DPKG_MAINTSCRIPT_PACKAGE.
 ####################################################################
 "
