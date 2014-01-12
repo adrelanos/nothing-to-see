@@ -17,6 +17,22 @@ check_package_manager_running_helper() {
    apt_get_update_pid="$!"
    wait "$apt_get_update_pid" || { apt_get_return="$?" ; true; };
    unset apt_get_update_pid
+
+   if [ "$apt_get_return" = "0" ]; then
+      ## Was not locked. Let's sleep a few seconds, then check again.
+      ## This is to prevent a conflict, where a script runs a package manager
+      ## multiple times in a row. We would not want to interfere in between the
+      ## few seconds pause. For example, to prevent conflicting with
+      ## debug-steps/locally-upgrade-whonix-debian-packages
+      sleep "2" &
+      wait "$!" || true
+
+      apt_get_return="0"
+      sudo  "/usr/lib/whonix/whonixcheck/apt-get-update-simulate" >/dev/null 2>&1 &
+      apt_get_update_pid="$!"
+      wait "$apt_get_update_pid" || { apt_get_return="$?" ; true; };
+      unset apt_get_update_pid
+   fi
 }
 
 ## }}}
