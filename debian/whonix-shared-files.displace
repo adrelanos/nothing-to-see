@@ -12,3 +12,4 @@
 /etc/issue.whonix
 /etc/kde4/kdm/kdmrc.whonix
 /etc/motd.whonix
+/usr/bin/wget.whonix
