@@ -4,7 +4,7 @@
 ## Copyright (C) 2012 - 2014 Patrick Schleizer <adrelanos@riseup.net>
 ## See the file COPYING for copying conditions.
 
-## Whonix /usr/bin/$SCRIPTNAME uwt wrapper.
+## Whonix $uwtwrapper_parent uwt wrapper.
 
 ## If you want to enable/disable uwt and/or privacy
 ## globally or for certain applications, see /etc/whonix.d/.
@@ -35,12 +35,12 @@ exit 1
 trap "error_handler" ERR
 
 sanity_tests_general() {
-   if [ ! -e "/usr/bin/$SCRIPTNAME.whonix-orig" ]; then
-      echo "$SCRIPTNAME uwt wrapper ERROR: /usr/bin/$SCRIPTNAME.whonix-orig does not exist."
+   if [ ! -e "$uwtwrapper_parent.whonix-orig" ]; then
+      echo "$SCRIPTNAME uwt wrapper ERROR: $uwtwrapper_parent.whonix-orig does not exist."
       exit 1
    fi
-   if [ ! -x "/usr/bin/$SCRIPTNAME.whonix-orig" ]; then
-      echo "$SCRIPTNAME uwt wrapper ERROR: /usr/bin/$SCRIPTNAME.whonix-orig is not executable."
+   if [ ! -x "$uwtwrapper_parent.whonix-orig" ]; then
+      echo "$SCRIPTNAME uwt wrapper ERROR: $uwtwrapper_parent.whonix-orig is not executable."
       exit 1
    fi
 }
@@ -103,16 +103,9 @@ for i in /etc/whonix.d/*; do
    fi
 done
 
-## Since application names sometimes contains "-" and bash variables
-## may not include "-", we have to remove "-" from the script name.
-SCRIPTNAME_CLEANED="$(echo "$SCRIPTNAME" | sed 's/-//g')"
+port=${uwtport["$uwtwrapper_parent"]}
 
-temp="uwtport_$SCRIPTNAME_CLEANED"
-port="${!temp}"
-
-temp="timeprivacy_$SCRIPTNAME"
-
-if [ "${!temp}" = "1" ]; then
+if [ "${timeprivacy["$uwtwrapper_parent"]}" = "1" ]; then
    fake_time="faketime"
    privacy_time="$("time_privacy" -f "/tmp/timeprivacy_$SCRIPTNAME_CLEANED")"
 else
@@ -139,27 +132,25 @@ if [ "$uwtwrapper_global" = "0" ]; then
       sanity_tests_general
       sanity_tests_timeprivacy
       exit_code="0"
-      exec "$fake_time" "$privacy_time" "/usr/bin/$SCRIPTNAME.whonix-orig" ${1+"$@"} || { exit_code="$?" ; true; };
+      exec "$fake_time" "$privacy_time" "$uwtwrapper_parent.whonix-orig" ${1+"$@"} || { exit_code="$?" ; true; };
    else
       sanity_tests_general
       exit_code="0"
-      exec "/usr/bin/$SCRIPTNAME.whonix-orig" ${1+"$@"} || { exit_code="$?" ; true; };
+      exec "$uwtwrapper_parent.whonix-orig" ${1+"$@"} || { exit_code="$?" ; true; };
    fi
    exit "$exit_code"
 fi
 
-temp="uwtwrapper_$SCRIPTNAME_CLEANED"
-
-if [ "${!temp}" = "0" ]; then
+if [ "${uwtwrapper["$uwtwrapper_parent"]}" = "0" ]; then
    if [ "$fake_time" = "faketime" ]; then
       sanity_tests_general
       sanity_tests_timeprivacy
       exit_code="0"
-      exec "$fake_time" "$privacy_time" "/usr/bin/$SCRIPTNAME.whonix-orig" ${1+"$@"} || { exit_code="$?" ; true; };
+      exec "$fake_time" "$privacy_time" "$uwtwrapper_parent.whonix-orig" ${1+"$@"} || { exit_code="$?" ; true; };
    else
       sanity_tests_general
       exit_code="0"
-      exec "/usr/bin/$SCRIPTNAME.whonix-orig" ${1+"$@"} || { exit_code="$?" ; true; };
+      exec "$uwtwrapper_parent.whonix-orig" ${1+"$@"} || { exit_code="$?" ; true; };
    fi
    exit "$exit_code"
 fi
@@ -169,13 +160,13 @@ if [ "$fake_time" = "faketime" ]; then
    sanity_tests_uwt
    sanity_tests_timeprivacy
    exit_code="0"
-   exec "$fake_time" "$privacy_time" "/usr/bin/uwt" -t 5 -i "$uwtwrapper_gateway_ip" -p "$port" "/usr/bin/$SCRIPTNAME.whonix-orig" ${1+"$@"} || { exit_code="$?" ; true; };
+   exec "$fake_time" "$privacy_time" "/usr/bin/uwt" -t 5 -i "$uwtwrapper_gateway_ip" -p "$port" "$uwtwrapper_parent.whonix-orig" ${1+"$@"} || { exit_code="$?" ; true; };
 else
    sanity_tests_general
    sanity_tests_uwt
    exit_code="0"
-   exec "/usr/bin/uwt" -t 5 -i "$uwtwrapper_gateway_ip" -p "$port" "/usr/bin/$SCRIPTNAME.whonix-orig" ${1+"$@"} || { exit_code="$?" ; true; };
+   exec "/usr/bin/uwt" -t 5 -i "$uwtwrapper_gateway_ip" -p "$port" "$uwtwrapper_parent.whonix-orig" ${1+"$@"} || { exit_code="$?" ; true; };
 fi
 exit "$exit_code"
 
-## End of Whonix /usr/bin/$SCRIPTNAME uwt wrapper.
+## End of Whonix $uwtwrapper_parent uwt wrapper.
