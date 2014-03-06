@@ -326,7 +326,7 @@ Please delete Whonix's source code folder and get it again as user, not root!${r
       ##      libguestfs-tools
       ##      guestmount (wheezy only)
       ##      guestfish (wheezy only)
-      apt-get $apt_timeout_opts $apt_unattended_opts --yes install \
+      apt-get $apt_timeout_opts $apt_unattended_opts --no-install-recommends --yes install \
          qemu-utils \
          grml-debootstrap \
          parted \
