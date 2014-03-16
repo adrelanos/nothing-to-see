@@ -77,3 +77,32 @@ USE_AA_EXEC="no"
 if [ -e /etc/default/tor.vidalia ] && [ -x /usr/bin/vidalia ]; then
 	. /etc/default/tor.vidalia
 fi
+
+# Begin of modifications for Whonix.
+
+if [ "$WHONIX_DEB_DEBUG" = "1" ]; then
+   set -x
+fi
+
+#set -o pipefail
+
+if [ "$WHONIX_DEB_DEBUG" = "1" ]; then
+   true "LD_PRELOAD: $LD_PRELOAD"
+fi
+
+## Remove /usr/lib/torsocks/libtorsocks.so from LD_PRELOAD.
+LD_PRELOAD="$(echo "$LD_PRELOAD" | sed 's/\/usr\/lib\/torsocks\/libtorsocks.so//g')"
+
+if [ "$WHONIX_DEB_DEBUG" = "1" ]; then
+   true "exit code: $?"
+fi
+
+export LD_PRELOAD
+
+if [ "$WHONIX_DEB_DEBUG" = "1" ]; then
+   true "exit code: $?"
+
+   true "LD_PRELOAD: $LD_PRELOAD"
+fi
+
+# End of modifications for Whonix.
