@@ -36,10 +36,9 @@ Default action when no options are given is to performs an update check and ask
 how you want to proceed.
 
 ## OPTIONS
-  * --clearnet
+  * --onion
 
-    Uses torproject.org clearnet domain instead of torprojects Tor hidden
-    service (hs). Useful in case the hs is down or overloaded.
+    Uses torproject.org onion domain instead torprojects clearnet domain.
 
   * --ordinary
 
