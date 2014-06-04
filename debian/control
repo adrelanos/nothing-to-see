@@ -31,7 +31,8 @@ Package: whonix-shared-packages-recommended
 Priority: optional
 Architecture: all
 Depends: bash-completion, command-not-found, zsh, nano, wget, dnsutils, dbus, iputils-ping,
- apparmor-profiles, apparmor-utils, apparmor-notify, udisks, secure-delete, ${misc:Depends}
+ apparmor-profiles, apparmor-utils, apparmor-notify, udisks, secure-delete,
+ openvpn, ${misc:Depends}
 Description: Recommended packages for Whonix-Gateway and Whonix-Workstation
  A metapackage, which includes recommended packages to ensure, Debian GNU/Linux
  standard tools are available and other useful recommended packages.
@@ -148,7 +149,7 @@ Priority: optional
 Architecture: all
 Depends: whonix-shared-desktop (= ${source:Version}), kde-workspace, kdm, kdesudo, kdepasswd, kfind,
  ksysguard, plasma-widget-folderview, kde-baseapps-bin, polkit-kde-1, konsole, kwrite, dolphin, ark,
- p7zip-full, zip, unzip, okular, khelpcenter4, ksystemlog, ${misc:Depends}
+ p7zip-full, zip, unzip, okular, khelpcenter4, ksystemlog, network-manager-kde, ${misc:Depends}
 Suggests: whonix-shared-kde-accessibility (= ${source:Version}),
  whonix-shared-desktop-langpack-kde (= ${source:Version})
 Description: Recommended packages for Gateway/Workstation base KDE desktop
