@@ -1,5 +1,6 @@
 <domain type='qemu'>
   <name>Whonix-Custom-Workstation</name>
+  <description>Do not change any settings if you do not understand the consequences! Learn more: https://www.whonix.org/wiki/KVM#XML_Settings</description>
   <memory unit='KiB'>1048576</memory>
   <currentMemory unit='KiB'>1048576</currentMemory>
   <memoryBacking>
@@ -12,7 +13,7 @@
   </os>
   <features>
     <acpi/>
-    <apic/>
+    <apic eoi='on'/>
     <pae/>
     <hap/>
   </features>
@@ -46,6 +47,7 @@
     <input type='mouse' bus='ps2'/>
     <graphics type='spice' autoport='yes'>
       <clipboard copypaste='no'/>
+      <filetransfer enable='no'/>
     </graphics>
     <sound model='ich6'/>
     <video>

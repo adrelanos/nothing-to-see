@@ -191,17 +191,24 @@ whonix_build_cmdoptions() {
                fi
                ;;
            --terminal-only | --no-gui | --terminalonly | --nogui)
-               whonix_build_script_whonix_package+=" whonix-shared-desktop "
-               whonix_build_script_whonix_package+=" whonix-shared-desktop-kde "
-               whonix_build_script_whonix_package+=" whonix-shared-kde-accessibility "
+               whonix_build_script_whonix_package+=" anon-shared-desktop "
+               whonix_build_script_whonix_package+=" anon-shared-desktop-kde "
+               whonix_build_script_whonix_package+=" anon-shared-kde-accessibility "
+               whonix_build_script_whonix_package+=" whonix-gateway "
+               whonix_build_script_whonix_package+=" whonix-workstation "
                export whonix_build_script_whonix_package
                shift
                ;;
            --no-default-applications | --nodefaultapplications)
+               whonix_build_script_whonix_package+=" anon-shared-packages-recommended "
+               whonix_build_script_whonix_package+=" anon-gateway-packages-recommended "
+               whonix_build_script_whonix_package+=" anon-workstation-packages-recommended "
+               whonix_build_script_whonix_package+=" anon-workstation-default-applications "
                whonix_build_script_whonix_package+=" whonix-shared-packages-recommended "
                whonix_build_script_whonix_package+=" whonix-gateway-packages-recommended "
                whonix_build_script_whonix_package+=" whonix-workstation-packages-recommended "
-               whonix_build_script_whonix_package+=" whonix-workstation-default-applications "
+               whonix_build_script_whonix_package+=" whonix-gateway "
+               whonix_build_script_whonix_package+=" whonix-workstation "
                export whonix_build_script_whonix_package
                shift
                ;;
@@ -263,6 +270,22 @@ whonix_build_cmdoptions() {
               export SKIP_SCRIPTS+=" 20_sanity_checks "
               shift
               ;;
+           --file-system)
+               export whonix_build_file_system="$2"
+               shift 2
+               ;;
+           --hostname)
+               export whonix_build_hostname="$2"
+               shift 2
+               ;;
+           --os-password)
+               export whonix_build_os_password="$2"
+               shift 2
+               ;;
+           --debopt)
+               export whonix_build_debopt="$2"
+               shift 2
+               ;;
            --)
                shift
                break
@@ -330,7 +353,7 @@ Defaulting BUILD_TARGET_ARCH to ${under}i386${eunder}.
    if [ "$build_machines" -le "0" ]; then
       if [ "$WHONIX_BUILD_PARSED" = "1" ]; then
          true
-      elif [ $WHONIX_BUILD_INTERNALRUN = "1" ] ; then
+      elif [ "$WHONIX_BUILD_INTERNALRUN" = "1" ] ; then
          true
       else
          error "${red}${bold}You must add --torgateway, --torworkstation, --torcustomworkstation or --all.${reset}"
